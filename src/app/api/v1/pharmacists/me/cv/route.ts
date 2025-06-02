@@ -71,6 +71,12 @@ export async function POST(req: NextRequest) {
 
     await ensureUploadsDirExists();
 
+    // Check if the request has the correct content type
+    const contentType = req.headers.get('content-type');
+    if (!contentType || !contentType.includes('multipart/form-data')) {
+      throw ApiError.badRequest('Content-Type must be multipart/form-data for file uploads.');
+    }
+
     const formData = await req.formData();
     const file = formData.get('cv') as File | null;
 
