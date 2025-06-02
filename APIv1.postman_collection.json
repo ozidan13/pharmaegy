@@ -1372,16 +1372,19 @@
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
-				"exec": [
-					""
-				]
+				"exec": [""]
 			}
 		},
 		{
 			"listen": "test",
 			"script": {
 				"type": "text/javascript",
-				"exec": [
+				"exec": [""]
+			}
+		}
+	],
+	"variable": [
+		{
 			"key": "jwt_token_pharmacist",
 			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtYjd6NGRodTAwMDBmdTk4ZmczdDNjdmEiLCJlbWFpbCI6InRlc3RjdkBnbWFpbC5jb20iLCJyb2xlIjoiUEhBUk1BQ0lTVCIsImlhdCI6MTc0ODQzODQ3MCwiZXhwIjoxNzQ4NTI0ODcwfQ.2VlFBG1EG3_VDyn0Lt90DEtwTPznLJWdBzTf-yfAAkI",
 			"type": "string"
