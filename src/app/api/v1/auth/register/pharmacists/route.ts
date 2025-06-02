@@ -136,7 +136,10 @@ export async function POST(req: NextRequest) {
           education,
           city,
           area: area || null,
-          // Ensure latitude and longitude are handled if they are part of the PharmacistProfile schema
+          // Default subscription settings
+          subscriptionPlan: 'FREE',
+          subscriptionStatus: 'ACTIVE',
+          subscriptionExpiresAt: null,
         },
       });
 

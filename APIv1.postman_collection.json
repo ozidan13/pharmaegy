@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1294db2d-90af-4093-bdf7-c2f474532375",
+		"_postman_id": "ad2c0bd2-6ffc-453b-a15a-52a048d7612e",
 		"name": "pharmaegy API v1",
 		"description": "Collection for pharmaegy API v1 Endpoints",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"pharmacist@example.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phoneNumber\": \"+1234567890\",\n  \"bio\": \"Experienced pharmacist with 5 years in retail pharmacy\",\n  \"experience\": \"5 years in retail pharmacy\",\n  \"education\": \"PharmD from University of Example\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\"\n}"
+							"raw": "{\n  \"email\": \"testpha1@gmail.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phoneNumber\": \"01234567890\",\n  \"bio\": \"Experienced pharmacist with 5 years in retail pharmacy\",\n  \"experience\": \"5 years in retail pharmacy\",\n  \"education\": \"PharmD from University of Example\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/auth/register/pharmacists",
@@ -73,7 +73,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"pharmacy@example.com\",\n  \"password\": \"password123\",\n  \"pharmacyName\": \"Example Pharmacy\",\n  \"contactPerson\": \"Jane Smith\",\n  \"phoneNumber\": \"+1234567890\",\n  \"address\": \"123 Main St, City, Country\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\"\n}"
+							"raw": "{\n  \"email\": \"testpharmacy1@gmail.com\",\n  \"password\": \"password123\",\n  \"pharmacyName\": \"Example Pharmacy\",\n  \"contactPerson\": \"Jane Smith\",\n  \"phoneNumber\": \"01234567890\",\n  \"address\": \"123 Main St, City, Country\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/auth/register/pharmacy-owners",
@@ -176,7 +176,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{jwt_token}}",
+									"value": "{{jwt_token_pharmacist}}",
 									"type": "string"
 								}
 							]
@@ -1355,6 +1355,224 @@
 				}
 			],
 			"description": "Endpoints for managing products in the store."
+		},
+		{
+			"name": "Subscription Endpoints",
+			"item": [
+				{
+					"name": "Get Subscription Pricing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/subscriptions/pricing",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"subscriptions",
+								"pricing"
+							]
+						},
+						"description": "Gets all available subscription plans with pricing information."
+					},
+					"response": [
+						{
+							"name": "Pricing Retrieved Successfully",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/pricing"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"plan\": \"FREE\",\n      \"price\": 0,\n      \"currency\": \"EGP\",\n      \"features\": {\n        \"pharmacist\": [\"Basic profile\", \"CV upload\", \"Job search\"],\n        \"pharmacyOwner\": [\"Basic profile\", \"Post 1 job\", \"View applicants\"]\n      }\n    },\n    {\n      \"plan\": \"STANDARD\",\n      \"price\": 20,\n      \"currency\": \"EGP\",\n      \"features\": {\n        \"pharmacist\": [\"Enhanced profile\", \"Priority in search\", \"Application tracking\"],\n        \"pharmacyOwner\": [\"Enhanced profile\", \"Post 5 jobs\", \"Advanced search\", \"Basic analytics\"]\n      }\n    },\n    {\n      \"plan\": \"PREMIUM\",\n      \"price\": 40,\n      \"currency\": \"EGP\",\n      \"features\": {\n        \"pharmacist\": [\"Not available for pharmacists\"],\n        \"pharmacyOwner\": [\"Premium profile\", \"Unlimited jobs\", \"Advanced analytics\", \"Priority support\", \"Custom branding\"]\n      }\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Subscription Pricing",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"plan\": \"STANDARD\",\n  \"price\": 25,\n  \"features\": {\n    \"pharmacist\": [\"Enhanced profile\", \"Priority in search\", \"Application tracking\"],\n    \"pharmacyOwner\": [\"Enhanced profile\", \"Post 5 jobs\", \"Advanced search\", \"Basic analytics\"]\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/subscriptions/pricing",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"subscriptions",
+								"pricing"
+							]
+						},
+						"description": "Updates pricing and features for a subscription plan. Admin only."
+					},
+					"response": [
+						{
+							"name": "Pricing Updated Successfully",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/pricing"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"message\": \"Subscription pricing updated successfully\",\n  \"data\": {\n    \"plan\": \"STANDARD\",\n    \"price\": 25,\n    \"currency\": \"EGP\",\n    \"features\": {\n      \"pharmacist\": [\"Enhanced profile\", \"Priority in search\", \"Application tracking\"],\n      \"pharmacyOwner\": [\"Enhanced profile\", \"Post 5 jobs\", \"Advanced search\", \"Basic analytics\"]\n    }\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get My Subscription",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/subscriptions/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"subscriptions",
+								"me"
+							]
+						},
+						"description": "Gets the current user's subscription status and details."
+					},
+					"response": [
+						{
+							"name": "Subscription Retrieved Successfully",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/me"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"subscription\": {\n      \"plan\": \"STANDARD\",\n      \"status\": \"ACTIVE\",\n      \"expiresAt\": \"2024-01-15T23:59:59.000Z\",\n      \"daysRemaining\": 25,\n      \"isExpired\": false\n    },\n    \"pricing\": {\n      \"plan\": \"STANDARD\",\n      \"price\": 20,\n      \"currency\": \"EGP\",\n      \"features\": {\n        \"pharmacist\": [\"Enhanced profile\", \"Priority in search\", \"Application tracking\"],\n        \"pharmacyOwner\": [\"Enhanced profile\", \"Post 5 jobs\", \"Advanced search\", \"Basic analytics\"]\n      }\n    }\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Upgrade Subscription",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"plan\": \"PREMIUM\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/subscriptions/upgrade",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"subscriptions",
+								"upgrade"
+							]
+						},
+						"description": "Upgrades the user's subscription to a higher plan."
+					},
+					"response": [
+						{
+							"name": "Subscription Upgraded Successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/subscriptions/upgrade"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"message\": \"Subscription upgraded successfully\",\n  \"data\": {\n    \"subscription\": {\n      \"plan\": \"PREMIUM\",\n      \"status\": \"ACTIVE\",\n      \"expiresAt\": \"2024-02-15T23:59:59.000Z\"\n    },\n    \"pricing\": {\n      \"plan\": \"PREMIUM\",\n      \"price\": 40,\n      \"currency\": \"EGP\",\n      \"features\": {\n        \"pharmacyOwner\": [\"Premium profile\", \"Unlimited jobs\", \"Advanced analytics\", \"Priority support\", \"Custom branding\"]\n      }\n    }\n  }\n}"
+						}
+					]
+				}
+			],
+			"description": "Endpoints for managing subscription plans and pricing."
 		}
 	],
 	"auth": {
@@ -1372,14 +1590,18 @@
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
-				"exec": [""]
+				"exec": [
+					""
+				]
 			}
 		},
 		{
 			"listen": "test",
 			"script": {
 				"type": "text/javascript",
-				"exec": [""]
+				"exec": [
+					""
+				]
 			}
 		}
 	],
@@ -1387,68 +1609,57 @@
 		{
 			"key": "baseUrl",
 			"value": "http://localhost:3000/api/v1",
-			"type": "string",
-			"description": "Base URL for the API endpoints"
+			"type": "string"
 		},
 		{
 			"key": "environment",
 			"value": "development",
-			"type": "string",
-			"description": "Current environment (development, staging, production)"
+			"type": "string"
 		},
 		{
 			"key": "jwt_token",
 			"value": "{{jwt_token_pharmacist}}",
-			"type": "string",
-			"description": "Active JWT token for authentication (defaults to pharmacist token)"
+			"type": "string"
 		},
 		{
 			"key": "jwt_token_pharmacist",
 			"value": "",
-			"type": "string",
-			"description": "JWT token for pharmacist user (obtained after login)"
+			"type": "string"
 		},
 		{
 			"key": "jwt_token_pharmacy_owner",
 			"value": "",
-			"type": "string",
-			"description": "JWT token for pharmacy owner user (obtained after login)"
+			"type": "string"
 		},
 		{
 			"key": "pharmacist_id",
 			"value": "",
-			"type": "string",
-			"description": "ID of the pharmacist user (set after registration or login)"
+			"type": "string"
 		},
 		{
 			"key": "pharmacy_owner_id",
 			"value": "",
-			"type": "string",
-			"description": "ID of the pharmacy owner user (set after registration or login)"
+			"type": "string"
 		},
 		{
 			"key": "pharmacy_id",
 			"value": "",
-			"type": "string",
-			"description": "ID of the pharmacy (set after pharmacy owner login)"
+			"type": "string"
 		},
 		{
 			"key": "product_id",
 			"value": "",
-			"type": "string",
-			"description": "ID of a product (set after product creation)"
+			"type": "string"
 		},
 		{
 			"key": "cv_file_path",
 			"value": "path/to/cv.pdf",
-			"type": "string",
-			"description": "Path to CV file for upload"
+			"type": "string"
 		},
 		{
 			"key": "product_image_path",
 			"value": "path/to/product.jpg",
-			"type": "string",
-			"description": "Path to product image for upload"
+			"type": "string"
 		}
 	]
 }

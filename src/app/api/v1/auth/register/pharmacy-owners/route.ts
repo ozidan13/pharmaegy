@@ -120,7 +120,10 @@ export async function POST(req: NextRequest) {
           address,
           city,
           area: area || null,
-          // Ensure latitude and longitude are handled if part of schema
+          // Default subscription settings
+          subscriptionPlan: 'FREE',
+          subscriptionStatus: 'ACTIVE',
+          subscriptionExpiresAt: null,
         },
       });
 

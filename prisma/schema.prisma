@@ -15,6 +15,18 @@ enum UserRole {
   PHARMACY_OWNER
 }
 
+enum SubscriptionPlan {
+  FREE
+  STANDARD
+  PREMIUM
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
@@ -41,6 +53,10 @@ model PharmacistProfile {
   city        String
   area        String?  // Optional: more specific area within the city
   available   Boolean @default(true) // Availability status
+  // Subscription information
+  subscriptionPlan   SubscriptionPlan   @default(FREE)
+  subscriptionStatus SubscriptionStatus @default(ACTIVE)
+  subscriptionExpiresAt DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -56,11 +72,23 @@ model PharmacyOwnerProfile {
   // Location information
   city          String
   area          String?  // Optional: more specific area within the city
-  subscriptionStatus String @default("none") // e.g., none, basic, premium
+  // Subscription information
+  subscriptionPlan   SubscriptionPlan   @default(FREE)
+  subscriptionStatus SubscriptionStatus @default(ACTIVE)
   subscriptionExpiresAt DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   products      Product[]
+}
+
+model SubscriptionPricing {
+  id       String           @id @default(cuid())
+  plan     SubscriptionPlan @unique
+  price    Float            // Price in Egyptian Pounds
+  currency String           @default("EGP")
+  features Json?            // JSON object containing plan features
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
 }
 
 model Product {
