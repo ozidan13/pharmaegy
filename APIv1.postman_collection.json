@@ -1385,19 +1385,70 @@
 	],
 	"variable": [
 		{
-			"key": "jwt_token_pharmacist",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtYjd6NGRodTAwMDBmdTk4ZmczdDNjdmEiLCJlbWFpbCI6InRlc3RjdkBnbWFpbC5jb20iLCJyb2xlIjoiUEhBUk1BQ0lTVCIsImlhdCI6MTc0ODQzODQ3MCwiZXhwIjoxNzQ4NTI0ODcwfQ.2VlFBG1EG3_VDyn0Lt90DEtwTPznLJWdBzTf-yfAAkI",
-			"type": "string"
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string",
+			"description": "Base URL for the API endpoints"
 		},
 		{
-			"key": "jwt_token_pharmacy_owner",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtYjd6NWhrMTAwMDNmdTk4aTZscGhrb2siLCJlbWFpbCI6InRlc3RjdnBoYXJtYWN5QGV4YW1wbGUuY29tIiwicm9sZSI6IlBIQVJNQUNZX09XTkVSIiwiaWF0IjoxNzQ4NDM4NTIxLCJleHAiOjE3NDg1MjQ5MjF9.8WgNH-l8XuXA6qMCc8Mx-_PwPZXTvYfBfF3vUBX5SzY",
-			"type": "string"
+			"key": "environment",
+			"value": "development",
+			"type": "string",
+			"description": "Current environment (development, staging, production)"
 		},
 		{
 			"key": "jwt_token",
+			"value": "{{jwt_token_pharmacist}}",
+			"type": "string",
+			"description": "Active JWT token for authentication (defaults to pharmacist token)"
+		},
+		{
+			"key": "jwt_token_pharmacist",
 			"value": "",
-			"type": "default"
+			"type": "string",
+			"description": "JWT token for pharmacist user (obtained after login)"
+		},
+		{
+			"key": "jwt_token_pharmacy_owner",
+			"value": "",
+			"type": "string",
+			"description": "JWT token for pharmacy owner user (obtained after login)"
+		},
+		{
+			"key": "pharmacist_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the pharmacist user (set after registration or login)"
+		},
+		{
+			"key": "pharmacy_owner_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the pharmacy owner user (set after registration or login)"
+		},
+		{
+			"key": "pharmacy_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the pharmacy (set after pharmacy owner login)"
+		},
+		{
+			"key": "product_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of a product (set after product creation)"
+		},
+		{
+			"key": "cv_file_path",
+			"value": "path/to/cv.pdf",
+			"type": "string",
+			"description": "Path to CV file for upload"
+		},
+		{
+			"key": "product_image_path",
+			"value": "path/to/product.jpg",
+			"type": "string",
+			"description": "Path to product image for upload"
 		}
 	]
 }
