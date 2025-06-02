@@ -59,14 +59,19 @@ export async function POST(req: NextRequest) {
   try {
     // Run validation middleware
     // Clone the request to allow body consumption by both middleware and handler
-    const reqClone = req.clone();
-    const bodyForValidation = await req.json(); // Consume the body once
-    (reqClone as any).body = bodyForValidation; // Attach parsed body for validator
-    // Make original req.json() return the already parsed body to avoid issues if handler calls it again
-    (req as any).json = async () => bodyForValidation;
+    const bodyForValidation = await req.json();
 
-    await runMiddleware(reqClone, NextResponse.next(), validateRegisterPharmacyOwner);
-    const errors = validationResult(reqClone as any);
+    // Create a mock request object for express-validator
+    const mockReq = {
+      ...req,
+      body: bodyForValidation,
+      headers: req.headers,
+      method: req.method,
+      url: req.url,
+    };
+
+    await runMiddleware(mockReq, NextResponse.next(), validateRegisterPharmacyOwner);
+    const errors = validationResult(mockReq as any);
     if (!errors.isEmpty()) {
       return NextResponse.json({ errors: errors.array() }, { status: 400 });
     }
