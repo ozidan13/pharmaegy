@@ -13,6 +13,7 @@ datasource db {
 enum UserRole {
   PHARMACIST
   PHARMACY_OWNER
+  ADMIN
 }
 
 enum SubscriptionPlan {
@@ -25,6 +26,13 @@ enum SubscriptionStatus {
   ACTIVE
   EXPIRED
   CANCELLED
+  PENDING
+}
+
+enum PaymentStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
 }
 
 model User {
@@ -36,6 +44,8 @@ model User {
   updatedAt     DateTime  @updatedAt
   pharmacistProfile PharmacistProfile?
   pharmacyOwnerProfile PharmacyOwnerProfile?
+  adminProfile AdminProfile?
+  paymentRequests PaymentRequest[]
 }
 
 model PharmacistProfile {
@@ -105,4 +115,42 @@ model Product {
   pharmacyOwner PharmacyOwnerProfile @relation(fields: [pharmacyOwnerId], references: [id], onDelete: Cascade)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+}
+
+model AdminProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstName String
+  lastName  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PaymentRequest {
+  id                String        @id @default(cuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscriptionPlan  SubscriptionPlan
+  amount            Float
+  currency          String        @default("EGP")
+  walletAddress     String        // Platform wallet address to receive payment
+  userWalletAddress String?       // User's wallet address they sent from
+  transactionHash   String?       // Optional transaction hash
+  status            PaymentStatus @default(PENDING)
+  confirmedBy       String?       // Admin ID who confirmed the payment
+  confirmedAt       DateTime?
+  rejectedReason    String?       // Reason for rejection if applicable
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+}
+
+model WalletConfig {
+  id            String   @id @default(cuid())
+  walletAddress String   @unique
+  currency      String   @default("EGP")
+  isActive      Boolean  @default(true)
+  description   String?  // e.g., "Main payment wallet"
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

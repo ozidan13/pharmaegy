@@ -14,6 +14,21 @@ export interface SubscriptionLimits {
 }
 
 export const getSubscriptionLimits = (plan: SubscriptionPlan, userRole: UserRole): SubscriptionLimits => {
+  // Admin users have unlimited access to everything
+  if (userRole === UserRole.ADMIN) {
+    return {
+      maxProductListings: undefined,
+      maxJobApplications: undefined,
+      hasAdvancedAnalytics: true,
+      hasPrioritySupport: true,
+      hasEmailNotifications: true,
+      hasPriorityInSearch: true,
+      hasCustomBranding: true,
+      hasApiAccess: true,
+      hasFeaturedBadge: true,
+    };
+  }
+
   const baseLimits: SubscriptionLimits = {
     hasAdvancedAnalytics: false,
     hasPrioritySupport: false,
@@ -77,6 +92,18 @@ export const getSubscriptionLimits = (plan: SubscriptionPlan, userRole: UserRole
 };
 
 export const checkSubscriptionStatus = async (userId: string, userRole: UserRole) => {
+  // Admin users have unlimited access
+  if (userRole === UserRole.ADMIN) {
+    return {
+      plan: SubscriptionPlan.PREMIUM, // Treat as premium for limits
+      status: SubscriptionStatus.ACTIVE,
+      expiresAt: null,
+      daysRemaining: null,
+      isExpired: false,
+      limits: getSubscriptionLimits(SubscriptionPlan.PREMIUM, userRole)
+    };
+  }
+
   let profile;
 
   if (userRole === UserRole.PHARMACIST) {
@@ -124,6 +151,11 @@ export const canPerformAction = async (
   userRole: UserRole, 
   action: 'CREATE_PRODUCT' | 'APPLY_JOB' | 'ACCESS_ANALYTICS' | 'CUSTOM_BRANDING'
 ): Promise<{ allowed: boolean; reason?: string }> => {
+  // Admin users can perform any action
+  if (userRole === UserRole.ADMIN) {
+    return { allowed: true };
+  }
+
   const subscription = await checkSubscriptionStatus(userId, userRole);
   
   if (!subscription) {
