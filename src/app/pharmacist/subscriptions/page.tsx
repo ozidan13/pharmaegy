@@ -4,14 +4,14 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import { UserRole } from '@prisma/client';
 import Navigation from '@/components/Navigation';
 
-export default function PharmacistProfilePage() {
+export default function PharmacistSubscriptionsPage() {
   return (
     <ProtectedRoute allowedRoles={[UserRole.PHARMACIST]}>
-      <Navigation title="Pharmacist Profile" />
+      <Navigation title="My Subscriptions" />
       <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold">Pharmacist Profile</h1>
+        <h1 className="text-2xl font-bold">My Subscriptions</h1>
         {/* Placeholder content */}
-        <p className="mt-4">Pharmacist profile viewing and editing interface will be implemented here.</p>
+        <p className="mt-4">Pharmacist subscription details and management will be implemented here.</p>
       </div>
     </ProtectedRoute>
   );

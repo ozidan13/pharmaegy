@@ -38,21 +38,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for stored token on mount
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-      fetchUserProfile(storedToken);
-    } else {
-      setIsLoading(false);
-    }
+    // Attempt to fetch user profile on mount, relying on HttpOnly cookie
+    fetchUserProfile();
   }, []);
 
-  const fetchUserProfile = async (authToken: string) => {
+  const fetchUserProfile = async () => {
     try {
       const response = await fetch('/api/v1/auth/me', {
         headers: {
-          'Authorization': `Bearer ${authToken}`,
+          // Cookie will be sent automatically by the browser
         },
       });
 
@@ -60,14 +54,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const userData = await response.json();
         setUser(userData.user);
       } else {
-        // Token is invalid, remove it
-        localStorage.removeItem('token');
-        setToken(null);
+        // No valid session or token is invalid
+        setUser(null); // Ensure user is cleared if fetch fails
+        setToken(null); // Clear token state as well
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
-      localStorage.removeItem('token');
-      setToken(null);
+      setUser(null); // Ensure user is cleared on error
+      setToken(null); // Clear token state as well
     } finally {
       setIsLoading(false);
     }
@@ -89,12 +83,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (response.ok) {
         const data = await response.json();
         const authToken = data.token;
-        
-        setToken(authToken);
-        localStorage.setItem('token', authToken);
-        
-        // Fetch user profile
-        await fetchUserProfile(authToken);
+        const userData = data.user;
+
+        setToken(authToken); // Set token in state (not localStorage)
+        setUser(userData); // Set user directly from login response
+        // No need to call fetchUserProfile again if login response includes user data
+        // If it doesn't, then: await fetchUserProfile();
         return true;
       } else {
         return false;
@@ -122,7 +116,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Clear frontend state regardless of backend response
       setUser(null);
       setToken(null);
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token'); // No longer using localStorage
     }
   };
 

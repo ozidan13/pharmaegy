@@ -50,7 +50,7 @@ export default function Navigation({ title = 'Pharma Connect' }: NavigationProps
       case 'PHARMACY_OWNER':
         return '/pharmacy-owner/profile';
       case 'ADMIN':
-        return '/admin/users';
+        return '/admin/users'; // Changed from /admin/wallet to /admin/users
       default:
         return '/auth/login';
     }
@@ -93,7 +93,7 @@ export default function Navigation({ title = 'Pharma Connect' }: NavigationProps
 
                   {user.role === 'PHARMACY_OWNER' && (
                     <Link
-                      href="/store"
+                      href="/pharmacy-owner/store" // Corrected link
                       className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                     >
                       Store
@@ -102,7 +102,7 @@ export default function Navigation({ title = 'Pharma Connect' }: NavigationProps
 
                   {user.role === 'PHARMACIST' && (
                     <Link
-                      href="/search"
+                      href="/pharmacist/search" // Corrected link
                       className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                     >
                       Search Jobs
