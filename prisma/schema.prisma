@@ -137,10 +137,13 @@ model PaymentRequest {
   walletAddress     String        // Platform wallet address to receive payment
   userWalletAddress String?       // User's wallet address they sent from
   transactionHash   String?       // Optional transaction hash
+  paymentProofImageUrl String?    // Optional: URL to user-uploaded payment proof
   status            PaymentStatus @default(PENDING)
   confirmedBy       String?       // Admin ID who confirmed the payment
   confirmedAt       DateTime?
   rejectedReason    String?       // Reason for rejection if applicable
+  adminNotes        String?       // Internal notes for admin review
+  // subscriptionId String? // Optional: Link to a specific subscription record if a Subscription model exists
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
 }
