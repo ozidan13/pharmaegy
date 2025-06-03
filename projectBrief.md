@@ -8,10 +8,11 @@
 
 ### Authentication & User Management
 - ✅ JWT-based authentication system
-- ✅ Role-based access control (Pharmacist & Pharmacy Owner)
+- ✅ Role-based access control (Pharmacist, Pharmacy Owner & Admin)
 - ✅ Secure password hashing with bcrypt
 - ✅ Protected API routes
 - ✅ Session management with NextAuth
+- ✅ Admin authentication with full platform privileges
 
 ### Pharmacist Features
 - ✅ Profile creation and management
@@ -25,7 +26,8 @@
 - ✅ Product catalog management with image uploads
 - ✅ Inventory tracking with stock management
 - ✅ Search for pharmacists by location and skills
-- ✅ Subscription management for premium features
+- ✅ Subscription upgrade requests with payment workflow
+- ✅ Payment request tracking and management
 
 ### Store Service
 - ✅ Product listing with images and categories
@@ -33,6 +35,14 @@
 - ✅ Advanced product search and filtering
 - ✅ Location-based product discovery
 - ✅ Responsive design for all devices
+
+### Admin & Payment System
+- ✅ Comprehensive admin dashboard with platform statistics
+- ✅ Admin user management and subscription control
+- ✅ Payment request workflow for subscription upgrades
+- ✅ Wallet configuration management
+- ✅ Payment confirmation and rejection system
+- ✅ Admin analytics and platform oversight
 
 ## 🛠 Technology Stack
 
@@ -80,27 +90,42 @@ The backend has been fully implemented with the following components:
 #### API Endpoints
 - **Authentication**
   - Register (Pharmacist/Pharmacy Owner)
-  - Login
+  - Login (User/Admin)
   - Refresh Token
   - Logout
+  - Admin authentication
 
 - **Pharmacists**
   - Profile management
   - CV upload and management
   - Job applications
   - Location-based search
+  - Payment request management
 
 - **Pharmacy Owners**
   - Profile and pharmacy management
   - Product catalog management
   - Inventory management
   - Pharmacist search
+  - Subscription upgrade requests
 
 - **Store Service**
   - Product CRUD operations
   - Stock management
   - Product search and filtering
   - Near-expiry tracking
+
+- **Admin Management**
+  - Platform dashboard and statistics
+  - User management and subscription control
+  - Payment request confirmation/rejection
+  - Wallet configuration management
+
+- **Payment & Subscription System**
+  - Subscription upgrade workflow
+  - Payment request tracking
+  - Wallet information retrieval
+  - Transaction management
 
 ### Frontend Implementation (Planned 🔄)
 

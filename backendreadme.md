@@ -6,15 +6,18 @@ This is the backend API for the pharmaegy platform, connecting pharmacists with 
 
 ### Authentication & Security
 - 🔐 JWT-based authentication system
-- 🔑 Role-based access control (Pharmacist & Pharmacy Owner)
+- 🔑 Role-based access control (Pharmacist, Pharmacy Owner & Admin)
 - 🔄 Session management with refresh tokens
 - 🛡️ CSRF protection and security headers
+- 👑 Admin authentication with full platform privileges
 
 ### User Management
 - 👤 Profile management for pharmacists and pharmacy owners
 - 📍 Location-based user discovery
 - 🔍 Advanced search with filters
 - 📊 Dashboard analytics
+- 👑 Admin user management with subscription control
+- 💳 Payment request management and confirmation system
 
 ### Store Service
 - 🏪 Product catalog management
@@ -27,6 +30,13 @@ This is the backend API for the pharmaegy platform, connecting pharmacists with 
 - 🔍 Job posting and application system
 - 📍 Location-based job search
 - 💬 Application tracking system
+
+### Admin & Payment System
+- 👑 Comprehensive admin dashboard with platform statistics
+- 💳 Payment request workflow for subscription upgrades
+- 🏦 Wallet configuration management
+- ✅ Payment confirmation and rejection system
+- 📊 Admin analytics and user management
 
 ## 🛠 Tech Stack
 
@@ -47,16 +57,20 @@ This is the backend API for the pharmaegy platform, connecting pharmacists with 
 backend/
 ├── src/
 │   ├── api/                  # API routes and controllers
-│   │   ├── auth/            # Authentication endpoints
+│   │   ├── auth/            # Authentication endpoints (including admin)
 │   │   ├── pharmacists/     # Pharmacist-related endpoints
 │   │   ├── pharmacies/      # Pharmacy owner endpoints
-│   │   └── store/           # Product store endpoints
+│   │   ├── store/           # Product store endpoints
+│   │   ├── admin/           # Admin management endpoints
+│   │   └── subscriptions/   # Subscription and payment endpoints
 │   ├── config/              # Configuration files
 │   ├── middleware/          # Custom middleware
 │   ├── types/               # TypeScript type definitions
 │   └── server.ts            # Main application entry point
 ├── prisma/
-│   └── schema.prisma       # Database schema
+│   ├── schema.prisma       # Database schema
+│   ├── admin-seed.js       # Admin user seeding script
+│   └── migrations/         # Database migrations
 ├── .env.example            # Environment variables example
 ├── package.json
 └── tsconfig.json
