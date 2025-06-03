@@ -97,16 +97,7 @@ export default function PharmacistDashboard() {
                     </div>
                   </Link>
                   
-                  <Link
-                    href="/pharmacist/jobs"
-                    className="bg-green-50 p-4 rounded-lg hover:bg-green-100 transition-colors"
-                  >
-                    <div className="text-center">
-                      <div className="text-green-600 font-medium">Browse Jobs</div>
-                      <div className="text-sm text-gray-600 mt-1">Find pharmacy opportunities</div>
-                    </div>
-                  </Link>
-                  
+
                   <Link
                     href="/pharmacist/subscription"
                     className="bg-yellow-50 p-4 rounded-lg hover:bg-yellow-100 transition-colors"
