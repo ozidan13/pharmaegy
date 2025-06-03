@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
+import { UserRole } from '@prisma/client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,13 +18,16 @@ export async function POST(request: NextRequest) {
 
     // Find admin user
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { 
+        email: email.toLowerCase(),
+        role: UserRole.ADMIN
+      },
       include: {
         adminProfile: true
       }
     });
 
-    if (!user || user.role !== 'ADMIN') {
+    if (!user) {
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
@@ -44,7 +46,7 @@ export async function POST(request: NextRequest) {
     // Generate JWT token
     const token = jwt.sign(
       { 
-        userId: user.id, 
+        id: user.id, 
         email: user.email, 
         role: user.role 
       },
@@ -52,16 +54,28 @@ export async function POST(request: NextRequest) {
       { expiresIn: '24h' }
     );
 
-    return NextResponse.json({
+    // Set HTTP-only cookie
+    const response = NextResponse.json({
+      success: true,
       message: 'Admin login successful',
       token,
       user: {
         id: user.id,
         email: user.email,
         role: user.role,
-        profile: user.adminProfile
+        adminProfile: user.adminProfile
       }
     });
+
+    response.cookies.set('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60, // 24 hours
+      path: '/'
+    });
+
+    return response;
 
   } catch (error) {
     console.error('Admin login error:', error);
@@ -69,7 +83,5 @@ export async function POST(request: NextRequest) {
       { error: 'Internal server error' },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }

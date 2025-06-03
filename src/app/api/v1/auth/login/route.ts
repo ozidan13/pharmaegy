@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
       };
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       message: 'Login successful',
       token,
       user: {
@@ -95,6 +95,17 @@ export async function POST(req: NextRequest) {
         profile: userProfile,
       },
     }, { status: 200 });
+
+    // Set token as httpOnly cookie for middleware authentication
+    response.cookies.set('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60, // 24 hours
+      path: '/'
+    });
+
+    return response;
 
   } catch (error) {
     return handleApiError(error);

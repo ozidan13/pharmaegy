@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "ad2c0bd2-6ffc-453b-a15a-52a048d7612e",
 		"name": "pharmaegy API v1",
-		"description": "Collection for pharmaegy API v1 Endpoints",
+		"description": "Collection for pharmaegy API v1 Endpoints\n\nAuthentication: This API uses HTTP-only cookies for authentication. Login endpoints set secure cookies that are automatically included in subsequent requests.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28449090"
 	},
@@ -21,15 +21,17 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"testpha1@gmail.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phoneNumber\": \"01234567890\",\n  \"bio\": \"Experienced pharmacist with 5 years in retail pharmacy\",\n  \"experience\": \"5 years in retail pharmacy\",\n  \"education\": \"PharmD from University of Example\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\"\n}"
+						"mode": "raw",
+						"raw": "{\n  \"email\": \"testpha1@gmail.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phoneNumber\": \"01234567890\",\n  \"bio\": \"Experienced pharmacist with 5 years in retail pharmacy\",\n  \"experience\": \"5 years working in retail pharmacy, specializing in patient counseling and medication management\",\n  \"education\": \"PharmD from Cairo University, Bachelor of Pharmaceutical Sciences\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/register/pharmacists",
+							"raw": "{{baseUrl}}/api/v1/auth/register/pharmacists",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"auth",
 								"register",
 								"pharmacists"
@@ -76,11 +78,13 @@
 							"raw": "{\n  \"email\": \"testpharmacy1@gmail.com\",\n  \"password\": \"password123\",\n  \"pharmacyName\": \"Example Pharmacy\",\n  \"contactPerson\": \"Jane Smith\",\n  \"phoneNumber\": \"01234567890\",\n  \"address\": \"123 Main St, City, Country\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/register/pharmacy-owners",
+							"raw": "{{baseUrl}}/api/v1/auth/register/pharmacy-owners",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"auth",
 								"register",
 								"pharmacy-owners"
@@ -127,16 +131,18 @@
 							"raw": "{\n  \"email\": \"pharmacytestrestfull@example.com\",\n  \"password\": \"password123\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/login",
+							"raw": "{{baseUrl}}/api/v1/auth/login",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"auth",
 								"login"
 							]
 						},
-						"description": "Logs in a user (pharmacist or pharmacy owner)."
+						"description": "Logs in a user (pharmacist or pharmacy owner). Sets HTTP-only cookie for authentication."
 					},
 					"response": [
 						{
@@ -155,10 +161,156 @@
 								{
 									"key": "Content-Type",
 									"value": "application/json"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "token=jwt_token_here; HttpOnly; Secure; SameSite=Strict; Max-Age=86400"
 								}
 							],
 							"cookie": [],
 							"body": "{\n  \"message\": \"Login successful\",\n  \"token\": \"jwt_token_here\",\n  \"user\": {\n    \"id\": \"user_id\",\n    \"email\": \"user@example.com\",\n    \"role\": \"PHARMACIST\" \n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@pharmaegy.com\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/admin/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"admin",
+								"login"
+							]
+						},
+						"description": "Logs in an admin user. Sets HTTP-only cookie for authentication."
+					},
+					"response": [
+						{
+							"name": "Admin Login Successful",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"admin@pharmaegy.com\",\n  \"password\": \"admin123\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/auth/admin/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"admin",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "token=jwt_token_here; HttpOnly; Secure; SameSite=Strict; Max-Age=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"Login successful\",\n  \"token\": \"jwt_token_here\",\n  \"user\": {\n    \"id\": \"admin_id\",\n    \"email\": \"admin@pharmaegy.com\",\n    \"role\": \"ADMIN\" \n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logs out the current user and clears the authentication cookie."
+					},
+					"response": [
+						{
+							"name": "Logout Successful",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/auth/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "token=; HttpOnly; Secure; SameSite=Strict; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"Logout successful\"\n}"
 						}
 					]
 				}
@@ -184,11 +336,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/pharmacists/me",
+							"raw": "{{baseUrl}}/api/v1/pharmacists/me",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"pharmacists",
 								"me"
 							]
@@ -244,11 +398,13 @@
 							"raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phoneNumber\": \"+1234567890\",\n  \"bio\": \"Updated bio information\",\n  \"experience\": \"6 years in retail pharmacy\",\n  \"education\": \"PharmD from University of Example\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\",\n  \"available\": true\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/pharmacists/me",
+							"raw": "{{baseUrl}}/api/v1/pharmacists/me",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"pharmacists",
 								"me"
 							]
@@ -295,11 +451,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/pharmacists/search?city=Cairo",
+							"raw": "{{baseUrl}}/api/v1/pharmacists/search?city=Cairo",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"pharmacists",
 								"search"
 							],
@@ -392,11 +550,13 @@
 							]
 						},
 						"url": {
-							"raw": "{{baseUrl}}/pharmacists/me/cv",
+							"raw": "{{baseUrl}}/api/v1/pharmacists/me/cv",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"pharmacists",
 								"me",
 								"cv"
@@ -437,11 +597,13 @@
 									]
 								},
 								"url": {
-									"raw": "{{baseUrl}}/pharmacists/me/cv",
+									"raw": "{{baseUrl}}/api/v1/pharmacists/me/cv",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"pharmacists",
 										"me",
 										"cv"
@@ -485,11 +647,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/pharmacists/me/cv",
+							"raw": "{{baseUrl}}/api/v1/pharmacists/me/cv",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"pharmacists",
 								"me",
 								"cv"
@@ -520,11 +684,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/pharmacists/me/cv",
+									"raw": "{{baseUrl}}/api/v1/pharmacists/me/cv",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"pharmacists",
 										"me",
 										"cv"
@@ -568,12 +734,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/pharmacies/me",
+							"raw": "{{baseUrl}}/api/v1/pharmacy-owners/me",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"pharmacies",
+								"api",
+								"v1",
+								"pharmacy-owners",
 								"me"
 							]
 						},
@@ -628,12 +796,14 @@
 							"raw": "{\n  \"pharmacyName\": \"Updated Pharmacy Name\",\n  \"contactPerson\": \"Updated Name\",\n  \"phoneNumber\": \"+1234567890\",\n  \"address\": \"Updated Address\",\n  \"city\": \"Cairo\",\n  \"area\": \"New Area\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/pharmacies/me",
+							"raw": "{{baseUrl}}/api/v1/pharmacy-owners/me",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"pharmacies",
+								"api",
+								"v1",
+								"pharmacy-owners",
 								"me"
 							]
 						},
@@ -688,14 +858,15 @@
 							"raw": "{\n  \"subscriptionType\": \"PREMIUM\",\n  \"durationMonths\": 12\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/pharmacies/me/subscription",
+							"raw": "{{baseUrl}}/api/v1/subscriptions/me",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"pharmacies",
-								"me",
-								"subscription"
+								"api",
+								"v1",
+								"subscriptions",
+								"me"
 							]
 						},
 						"description": "Updates the subscription for the authenticated pharmacy owner."
@@ -752,11 +923,13 @@
 							]
 						},
 						"url": {
-							"raw": "{{baseUrl}}/pharmacists/me/cv",
+							"raw": "{{baseUrl}}/api/v1/pharmacists/me/cv",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"pharmacists",
 								"me",
 								"cv"
@@ -787,11 +960,13 @@
 									]
 								},
 								"url": {
-									"raw": "{{baseUrl}}/pharmacists/me/cv",
+									"raw": "{{baseUrl}}/api/v1/pharmacists/me/cv",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"pharmacists",
 										"me",
 										"cv"
@@ -825,11 +1000,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/pharmacists/me/cv",
+							"raw": "{{baseUrl}}/api/v1/pharmacists/me/cv",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"pharmacists",
 								"me",
 								"cv"
@@ -850,11 +1027,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/pharmacists/me/cv",
+									"raw": "{{baseUrl}}/api/v1/pharmacists/me/cv",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"pharmacists",
 										"me",
 										"cv"
@@ -891,11 +1070,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/store/products",
+									"raw": "{{baseUrl}}/api/v1/store/products",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"store",
 										"products"
 									],
@@ -946,7 +1127,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/store/products/search?query=Paracetamol",
+									"raw": "{{baseUrl}}/api/v1/store/products/search?query=Paracetamol",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1036,7 +1217,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/store/products/:id",
+									"raw": "{{baseUrl}}/api/v1/store/products/:id",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1110,15 +1291,17 @@
 									"raw": "{\n  \"name\": \"New Product\",\n  \"description\": \"Product description\",\n  \"price\": 19.99,\n  \"stock\": 50,\n  \"category\": \"MEDICATION\"\n}"
 								},
 								"url": {
-									"raw": "{{baseUrl}}/store/products",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"store",
-										"products"
-									]
-								},
+							"raw": "{{baseUrl}}/api/v1/store/products",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"store",
+								"products"
+							]
+						},
 								"description": "Creates a new product for the authenticated pharmacy owner."
 							},
 							"response": [
@@ -1161,7 +1344,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/store/products/me",
+									"raw": "{{baseUrl}}/api/v1/store/products/me",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1248,7 +1431,7 @@
 									"raw": "{\n  \"name\": \"Updated Product Name\",\n  \"description\": \"Updated description\",\n  \"price\": 15.99,\n  \"stock\": 75,\n  \"category\": \"MEDICATION\"\n}"
 								},
 								"url": {
-									"raw": "{{baseUrl}}/store/products/:productId",
+									"raw": "{{baseUrl}}/api/v1/store/products/:productId",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1307,7 +1490,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/store/products/:productId",
+									"raw": "{{baseUrl}}/api/v1/store/products/:productId",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1365,11 +1548,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/subscriptions/pricing",
+							"raw": "{{baseUrl}}/api/v1/subscriptions/pricing",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"subscriptions",
 								"pricing"
 							]
@@ -1383,7 +1568,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/subscriptions/pricing"
+									"raw": "{{baseUrl}}/api/v1/subscriptions/pricing"
 								}
 							},
 							"status": "OK",
@@ -1425,11 +1610,13 @@
 							"raw": "{\n  \"plan\": \"STANDARD\",\n  \"price\": 25,\n  \"features\": {\n    \"pharmacist\": [\"Enhanced profile\", \"Priority in search\", \"Application tracking\"],\n    \"pharmacyOwner\": [\"Enhanced profile\", \"Post 5 jobs\", \"Advanced search\", \"Basic analytics\"]\n  }\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/subscriptions/pricing",
+							"raw": "{{baseUrl}}/api/v1/subscriptions/pricing",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"subscriptions",
 								"pricing"
 							]
@@ -1443,7 +1630,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/subscriptions/pricing"
+									"raw": "{{baseUrl}}/api/v1/subscriptions/pricing"
 								}
 							},
 							"status": "OK",
@@ -1476,7 +1663,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/subscriptions/me",
+							"raw": "{{baseUrl}}/api/v1/subscriptions/me",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1494,7 +1681,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/subscriptions/me"
+									"raw": "{{baseUrl}}/api/v1/subscriptions/me"
 								}
 							},
 							"status": "OK",
@@ -1536,7 +1723,7 @@
 							"raw": "{\n  \"plan\": \"PREMIUM\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/subscriptions/upgrade",
+							"raw": "{{baseUrl}}/api/v1/subscriptions/upgrade",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1554,7 +1741,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/subscriptions/upgrade"
+									"raw": "{{baseUrl}}/api/v1/subscriptions/upgrade"
 								}
 							},
 							"status": "OK",
@@ -1592,11 +1779,13 @@
 							"raw": "{\n  \"email\": \"admin@pharmaproject.com\",\n  \"password\": \"admin123\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/admin/login",
+							"raw": "{{baseUrl}}/api/v1/auth/admin/login",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"auth",
 								"admin",
 								"login"
@@ -1611,7 +1800,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/auth/admin/login"
+									"raw": "{{baseUrl}}/api/v1/auth/admin/login"
 								}
 							},
 							"status": "OK",
@@ -1639,7 +1828,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/admin/dashboard",
+							"raw": "{{baseUrl}}/api/v1/admin/dashboard",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1668,7 +1857,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/admin/users?page=1&limit=20&role=all",
+							"raw": "{{baseUrl}}/api/v1/admin/users?page=1&limit=20&role=all",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1720,7 +1909,7 @@
 							"raw": "{\n  \"userId\": \"user_id_here\",\n  \"action\": \"updateSubscription\",\n  \"subscriptionPlan\": \"PREMIUM\",\n  \"subscriptionStatus\": \"ACTIVE\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/users",
+							"raw": "{{baseUrl}}/api/v1/admin/users",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1749,7 +1938,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/admin/payments?status=PENDING&page=1&limit=20",
+							"raw": "{{baseUrl}}/api/v1/admin/payments?status=PENDING&page=1&limit=20",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1801,7 +1990,7 @@
 							"raw": "{\n  \"paymentId\": \"payment_id_here\",\n  \"action\": \"confirm\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/payments",
+							"raw": "{{baseUrl}}/api/v1/admin/payments",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1839,7 +2028,7 @@
 							"raw": "{\n  \"paymentId\": \"payment_id_here\",\n  \"action\": \"reject\",\n  \"rejectedReason\": \"Invalid transaction or insufficient payment\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/payments",
+							"raw": "{{baseUrl}}/api/v1/admin/payments",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1868,7 +2057,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/admin/wallet",
+							"raw": "{{baseUrl}}/api/v1/admin/wallet",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1906,7 +2095,7 @@
 							"raw": "{\n  \"walletAddress\": \"new_wallet_address_123\",\n  \"currency\": \"EGP\",\n  \"description\": \"New payment wallet\",\n  \"isActive\": true\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/wallet",
+							"raw": "{{baseUrl}}/api/v1/admin/wallet",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1935,7 +2124,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/subscriptions/wallet",
+							"raw": "{{baseUrl}}/api/v1/subscriptions/wallet",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1964,7 +2153,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/subscriptions/payments?status=PENDING",
+							"raw": "{{baseUrl}}/api/v1/subscriptions/payments?status=PENDING",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -2008,7 +2197,7 @@
 							"raw": "{\n  \"paymentId\": \"payment_id_here\",\n  \"userWalletAddress\": \"user_wallet_address\",\n  \"transactionHash\": \"transaction_hash_optional\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/subscriptions/payments",
+							"raw": "{{baseUrl}}/api/v1/subscriptions/payments",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -2058,7 +2247,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://localhost:3000/api/v1",
+			"value": "http://localhost:3000",
 			"type": "string"
 		},
 		{
