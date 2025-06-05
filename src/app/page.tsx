@@ -357,51 +357,8 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-apple-blue to-apple-purple rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">P</span>
-                </div>
-                <span className="text-xl font-semibold">PharmaConnect</span>
-              </div>
-              <p className="text-gray-400 leading-relaxed">
-                Connecting the pharmaceutical community for a healthier future.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">For Pharmacists</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/auth/register/pharmacist" className="hover:text-white transition-colors">Join Now</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Browse Jobs</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Career Resources</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">For Pharmacy Owners</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/auth/register/pharmacy-owner" className="hover:text-white transition-colors">Join Now</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Find Pharmacists</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Pricing Plans</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="#" className="hover:text-white transition-colors">Help Center</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Contact Us</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-              </ul>
-            </div>
-          </div>
-          
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <div className="flex items-center justify-center gap-2">
-              
-
               <a 
                 href="https://www.linkedin.com/in/ozidan/"
                 target="_blank"
