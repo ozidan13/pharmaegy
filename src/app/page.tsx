@@ -47,7 +47,7 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen overflow-hidden font-arabic bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 dark:from-blue-950 dark:via-blue-900 dark:to-blue-800">
+    <div className="min-h-screen overflow-hidden font-arabic bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 dark:from-blue-950 dark:via-blue-900 dark:to-blue-800 main-page">
       {/* Full-Screen Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center">
         {/* Elegant Flying Circles Background */}

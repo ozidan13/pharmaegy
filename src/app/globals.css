@@ -144,7 +144,6 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  direction: rtl;
   text-align: right;
 }
 
@@ -155,10 +154,16 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
+}
+
+.main-page {
   direction: rtl;
   text-align: right;
 }
 
+input, textarea, select {
+  color: rgb(41, 41, 41)
+}
 /* Gradient Text */
 .text-gradient-apple {
   background: linear-gradient(135deg, var(--color-apple-blue) 0%, var(--color-apple-purple) 100%);

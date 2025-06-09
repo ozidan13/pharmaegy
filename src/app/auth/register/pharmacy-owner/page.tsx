@@ -195,11 +195,8 @@ export default function PharmacyOwnerRegisterPage() {
               </div>
 
               {/* Password Fields */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                    Password *
-                  </label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 register">
+                <div className="relative group">
                   <input
                     type="password"
                     id="password"
@@ -207,14 +204,18 @@ export default function PharmacyOwnerRegisterPage() {
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                    className="peer w-full px-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200/50 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all duration-300 hover:shadow-xl hover:bg-white/80 placeholder-transparent"
+                    placeholder="Password"
                   />
+                  <label
+                    htmlFor="password"
+                    className="absolute left-4 -top-2.5 bg-white/90 backdrop-blur-sm px-2 text-sm font-medium text-gray-700 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-placeholder-shown:bg-transparent peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-green-600 peer-focus:bg-white/90 rounded-lg"
+                  >
+                    Password *
+                  </label>
                 </div>
 
-                <div>
-                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                    Confirm Password *
-                  </label>
+                <div className="relative group">
                   <input
                     type="password"
                     id="confirmPassword"
@@ -222,120 +223,175 @@ export default function PharmacyOwnerRegisterPage() {
                     required
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                    className="peer w-full px-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200/50 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all duration-300 hover:shadow-xl hover:bg-white/80 placeholder-transparent"
+                    placeholder="Confirm Password"
                   />
+                  <label
+                    htmlFor="confirmPassword"
+                    className="absolute left-4 -top-2.5 bg-white/90 backdrop-blur-sm px-2 text-sm font-medium text-gray-700 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-placeholder-shown:bg-transparent peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-green-600 peer-focus:bg-white/90 rounded-lg"
+                  >
+                    Confirm Password *
+                  </label>
                 </div>
               </div>
 
               {/* Pharmacy Information */}
-              <div>
-                <label htmlFor="pharmacyName" className="block text-sm font-medium text-gray-700">
-                  Pharmacy Name *
-                </label>
-                <input
-                  type="text"
-                  id="pharmacyName"
-                  name="pharmacyName"
-                  required
-                  value={formData.pharmacyName}
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                />
-              </div>
+              <div className="space-y-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse"></div>
+                  Pharmacy Information
+                </h3>
+                
+                <div className="relative group">
+                  <input
+                    type="text"
+                    id="pharmacyName"
+                    name="pharmacyName"
+                    required
+                    value={formData.pharmacyName}
+                    onChange={handleInputChange}
+                    className="peer w-full px-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200/50 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all duration-300 hover:shadow-xl hover:bg-white/80 placeholder-transparent"
+                    placeholder="Pharmacy Name"
+                  />
+                  <label
+                    htmlFor="pharmacyName"
+                    className="absolute left-4 -top-2.5 bg-white/90 backdrop-blur-sm px-2 text-sm font-medium text-gray-700 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-placeholder-shown:bg-transparent peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-green-600 peer-focus:bg-white/90 rounded-lg"
+                  >
+                    Pharmacy Name *
+                  </label>
+                </div>
 
-              <div>
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-                  Pharmacy Address *
-                </label>
-                <textarea
-                  id="address"
-                  name="address"
-                  required
-                  rows={3}
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                />
+                <div className="relative group">
+                  <textarea
+                    id="address"
+                    name="address"
+                    required
+                    rows={3}
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    className="peer w-full px-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200/50 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all duration-300 hover:shadow-xl hover:bg-white/80 placeholder-transparent resize-none"
+                    placeholder="Pharmacy Address"
+                  />
+                  <label
+                    htmlFor="address"
+                    className="absolute left-4 -top-2.5 bg-white/90 backdrop-blur-sm px-2 text-sm font-medium text-gray-700 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-placeholder-shown:bg-transparent peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-green-600 peer-focus:bg-white/90 rounded-lg"
+                  >
+                    Pharmacy Address *
+                  </label>
+                </div>
               </div>
 
               {/* Location */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                    City *
-                  </label>
-                  <select
-                    id="city"
-                    name="city"
-                    required
-                    value={formData.city}
-                    onChange={handleInputChange}
-                    disabled={loadingCities}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
-                  >
-                    <option value="">
-                      {loadingCities ? 'Loading cities...' : 'Select a city'}
-                    </option>
-                    {cities.map((city) => (
-                      <option key={city.id} value={city.id}>
-                        {city.name}
+              <div className="space-y-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse"></div>
+                  Location
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="relative group">
+                    <select
+                      id="city"
+                      name="city"
+                      required
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      disabled={loadingCities}
+                      className="peer w-full px-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200/50 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all duration-300 hover:shadow-xl hover:bg-white/80 disabled:bg-gray-100/70 disabled:cursor-not-allowed appearance-none"
+                    >
+                      <option value="">
+                        {loadingCities ? 'Loading cities...' : 'Select a city'}
                       </option>
-                    ))}
-                  </select>
-                </div>
+                      {cities.map((city) => (
+                        <option key={city.id} value={city.id}>
+                          {city.name}
+                        </option>
+                      ))}
+                    </select>
+                    <label
+                      htmlFor="city"
+                      className="absolute left-4 -top-2.5 bg-white/90 backdrop-blur-sm px-2 text-sm font-medium text-gray-700 transition-all duration-300 rounded-lg"
+                    >
+                      City *
+                    </label>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
 
-                <div>
-                  <label htmlFor="area" className="block text-sm font-medium text-gray-700">
-                    Area *
-                  </label>
-                  <select
-                    id="area"
-                    name="area"
-                    required
-                    value={formData.area}
-                    onChange={handleInputChange}
-                    disabled={!formData.city || areas.length === 0}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
-                  >
-                    <option value="">
-                      {!formData.city ? 'Select a city first' : areas.length === 0 ? 'No areas available' : 'Select an area'}
-                    </option>
-                    {areas.map((area) => (
-                      <option key={area.id} value={area.id}>
-                        {area.name}
+                  <div className="relative group">
+                    <select
+                      id="area"
+                      name="area"
+                      required
+                      value={formData.area}
+                      onChange={handleInputChange}
+                      disabled={!formData.city || areas.length === 0}
+                      className="peer w-full px-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200/50 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all duration-300 hover:shadow-xl hover:bg-white/80 disabled:bg-gray-100/70 disabled:cursor-not-allowed appearance-none"
+                    >
+                      <option value="">
+                        {!formData.city ? 'Select a city first' : areas.length === 0 ? 'No areas available' : 'Select an area'}
                       </option>
-                    ))}
-                  </select>
+                      {areas.map((area) => (
+                        <option key={area.id} value={area.id}>
+                          {area.name}
+                        </option>
+                      ))}
+                    </select>
+                    <label
+                      htmlFor="area"
+                      className="absolute left-4 -top-2.5 bg-white/90 backdrop-blur-sm px-2 text-sm font-medium text-gray-700 transition-all duration-300 rounded-lg"
+                    >
+                      Area *
+                    </label>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
 
 
 
-              <div className="flex items-center justify-between">
-                <Link
-                  href="/auth/login"
-                  className="text-sm text-green-600 hover:text-green-500"
-                >
-                  Already have an account? Sign in
-                </Link>
-                
+              <div className="flex flex-col space-y-6 pt-6">
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-green-600 text-white py-2 px-6 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="group relative w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 px-8 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-green-400/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
                 >
-                  {isLoading ? (
-                    <div className="flex items-center">
-                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Registering...
-                    </div>
-                  ) : (
-                    'Register'
-                  )}
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative flex items-center justify-center">
+                    {isLoading ? (
+                      <>
+                        <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent mr-3"></div>
+                        <span className="animate-pulse">Creating Account...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Create Pharmacy Account</span>
+                        <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </>
+                    )}
+                  </div>
                 </button>
+                
+                <div className="text-center">
+                  <Link
+                    href="/auth/login"
+                    className="inline-flex items-center text-sm text-gray-600 hover:text-green-600 transition-colors duration-300 group"
+                  >
+                    <svg className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Already have an account? Sign in
+                  </Link>
+                </div>
               </div>
             </form>
           </div>
