@@ -9,7 +9,7 @@ interface NavigationProps {
   title?: string;
 }
 
-export default function Navigation({ title = 'Pharma Connect' }: NavigationProps) {
+export default function Navigation({ title = 'PharmaBridge' }: NavigationProps) {
   const { user, logout, isAuthenticated } = useAuth();
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
