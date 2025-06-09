@@ -34,6 +34,7 @@ const validateLogin = [
 ];
 
 export async function POST(req: NextRequest) {
+ 
   try {
     const reqBody = await req.json();
     const mockReq = { body: reqBody, headers: req.headers, method: req.method, url: req.url } as any;
@@ -106,6 +107,7 @@ export async function POST(req: NextRequest) {
     });
 
     return response;
+   
 
   } catch (error) {
     return handleApiError(error);
