@@ -2354,6 +2354,120 @@
 				}
 			],
 			"description": "Admin endpoints for platform management and payment confirmation."
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Get All Cities with Areas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/locations/cities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"locations",
+								"cities"
+							]
+						},
+						"description": "Retrieves all Egyptian cities with their corresponding areas. This endpoint is designed for frontend dropdown menus to ensure consistency between frontend and backend."
+					},
+					"response": [
+						{
+							"name": "Cities Retrieved Successfully",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/locations/cities",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"locations",
+										"cities"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"cities\": [\n      {\n        \"id\": \"cairo\",\n        \"name\": \"Cairo\",\n        \"nameAr\": \"القاهرة\",\n        \"areas\": [\n          {\n            \"id\": \"area_id_1\",\n            \"name\": \"Nasr City\"\n          },\n          {\n            \"id\": \"area_id_2\",\n            \"name\": \"Heliopolis\"\n          }\n        ]\n      }\n    ],\n    \"totalCities\": 27,\n    \"totalAreas\": 450\n  },\n  \"message\": \"Cities and areas retrieved successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Areas by City",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/locations/cities/cairo/areas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"locations",
+								"cities",
+								"cairo",
+								"areas"
+							]
+						},
+						"description": "Retrieves areas for a specific city by city ID."
+					},
+					"response": [
+						{
+							"name": "City Areas Retrieved Successfully",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/locations/cities/cairo/areas",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"locations",
+										"cities",
+										"cairo",
+										"areas"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"city\": {\n      \"id\": \"cairo\",\n      \"name\": \"Cairo\",\n      \"nameAr\": \"القاهرة\"\n    },\n    \"areas\": [\n      {\n        \"id\": \"area_id_1\",\n        \"name\": \"Nasr City\"\n      },\n      {\n        \"id\": \"area_id_2\",\n        \"name\": \"Heliopolis\"\n      },\n      {\n        \"id\": \"area_id_3\",\n        \"name\": \"Maadi\"\n      }\n    ],\n    \"totalAreas\": 25\n  },\n  \"message\": \"Areas for Cairo retrieved successfully\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Endpoints for retrieving Egyptian cities and areas data for frontend dropdowns."
 		}
 	],
 	"auth": {

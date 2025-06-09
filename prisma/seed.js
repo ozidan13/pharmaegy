@@ -1,8 +1,14 @@
 const { PrismaClient } = require('@prisma/client');
+const { seedCitiesAndAreas } = require('./cities-seed');
 
 const prisma = new PrismaClient();
 
 async function main() {
+  console.log('Starting database seeding...');
+  
+  // Seed cities and areas first
+  await seedCitiesAndAreas();
+  
   console.log('Seeding subscription pricing...');
 
   // Create subscription pricing plans

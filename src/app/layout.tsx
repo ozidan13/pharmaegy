@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pharma Connect",
+  title: "PharmaBridge",
   description: "Connect pharmacists with pharmacy owners",
 };
 
