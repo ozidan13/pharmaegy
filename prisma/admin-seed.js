@@ -8,10 +8,10 @@ async function main() {
 
   // Create wallet configuration
   const walletConfig = await prisma.walletConfig.upsert({
-    where: { walletAddress: 'wallet123456789' },
+    where: { walletAddress: '01026454497' },
     update: {},
     create: {
-      walletAddress: 'wallet123456789',
+      walletAddress: '01026454497',
       currency: 'EGP',
       isActive: true,
       description: 'Main payment wallet for subscription upgrades'
