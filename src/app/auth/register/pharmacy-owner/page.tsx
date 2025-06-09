@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
@@ -15,6 +15,18 @@ interface PharmacyOwnerFormData {
   address: string;
   city: string;
   area: string;
+}
+
+interface City {
+  id: string;
+  name: string;
+  nameAr: string;
+  areas: Area[];
+}
+
+interface Area {
+  id: string;
+  name: string;
 }
 
 export default function PharmacyOwnerRegisterPage() {
@@ -32,10 +44,40 @@ export default function PharmacyOwnerRegisterPage() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [cities, setCities] = useState<City[]>([]);
+  const [areas, setAreas] = useState<Area[]>([]);
+  const [loadingCities, setLoadingCities] = useState(true);
+
+  // Fetch cities on component mount
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await fetch('/api/v1/locations/cities');
+        const data = await response.json();
+        if (data.success) {
+          setCities(data.data.cities);
+        }
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      } finally {
+        setLoadingCities(false);
+      }
+    };
+
+    fetchCities();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    if (name === 'city') {
+      // When city changes, update areas and reset area selection
+      const selectedCity = cities.find(city => city.id === value);
+      setAreas(selectedCity ? selectedCity.areas : []);
+      setFormData(prev => ({ ...prev, [name]: value, area: '' }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -222,30 +264,48 @@ export default function PharmacyOwnerRegisterPage() {
                   <label htmlFor="city" className="block text-sm font-medium text-gray-700">
                     City *
                   </label>
-                  <input
-                    type="text"
+                  <select
                     id="city"
                     name="city"
                     required
                     value={formData.city}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                  />
+                    disabled={loadingCities}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  >
+                    <option value="">
+                      {loadingCities ? 'Loading cities...' : 'Select a city'}
+                    </option>
+                    {cities.map((city) => (
+                      <option key={city.id} value={city.id}>
+                        {city.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
                   <label htmlFor="area" className="block text-sm font-medium text-gray-700">
                     Area *
                   </label>
-                  <input
-                    type="text"
+                  <select
                     id="area"
                     name="area"
                     required
                     value={formData.area}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                  />
+                    disabled={!formData.city || areas.length === 0}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  >
+                    <option value="">
+                      {!formData.city ? 'Select a city first' : areas.length === 0 ? 'No areas available' : 'Select an area'}
+                    </option>
+                    {areas.map((area) => (
+                      <option key={area.id} value={area.id}>
+                        {area.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
