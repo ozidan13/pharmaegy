@@ -95,6 +95,18 @@ export default function PharmacyOwnerRegisterPage() {
       return;
     }
 
+    // Validate required fields
+    if (!formData.email || !formData.contactPerson || !formData.pharmacyName || !formData.city) {
+      setError('Please fill in all required fields');
+      return;
+    }
+
+    // Validate phone number format if provided
+    if (formData.phoneNumber && !/^[0-9+\-\s()]+$/.test(formData.phoneNumber)) {
+      setError('Please enter a valid phone number');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -114,7 +126,13 @@ export default function PharmacyOwnerRegisterPage() {
         // Registration successful
         router.push('/auth/login?message=Registration successful! Please log in.');
       } else {
-        setError(data.error || 'Registration failed');
+        // Handle validation errors from API
+        if (data.errors && Array.isArray(data.errors)) {
+          const errorMessages = data.errors.map((err: any) => err.msg).join(', ');
+          setError(errorMessages);
+        } else {
+          setError(data.message || data.error || 'Registration failed');
+        }
       }
     } catch (error) {
       setError('Network error. Please try again.');
@@ -165,15 +183,15 @@ export default function PharmacyOwnerRegisterPage() {
 
                 <div>
                   <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-                    Phone Number *
+                    Phone Number
                   </label>
                   <input
                     type="tel"
                     id="phoneNumber"
                     name="phoneNumber"
-                    required
                     value={formData.phoneNumber}
                     onChange={handleInputChange}
+                    placeholder="e.g., 01234567890"
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
                   />
                 </div>
@@ -325,14 +343,13 @@ export default function PharmacyOwnerRegisterPage() {
                     <select
                       id="area"
                       name="area"
-                      required
                       value={formData.area}
                       onChange={handleInputChange}
-                      disabled={!formData.city || areas.length === 0}
+                      disabled={!formData.city}
                       className="peer w-full px-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200/50 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 transition-all duration-300 hover:shadow-xl hover:bg-white/80 disabled:bg-gray-100/70 disabled:cursor-not-allowed appearance-none"
                     >
                       <option value="">
-                        {!formData.city ? 'Select a city first' : areas.length === 0 ? 'No areas available' : 'Select an area'}
+                        {!formData.city ? 'Select a city first' : areas.length === 0 ? 'No areas available (optional)' : 'Select an area (optional)'}
                       </option>
                       {areas.map((area) => (
                         <option key={area.id} value={area.id}>
@@ -344,7 +361,7 @@ export default function PharmacyOwnerRegisterPage() {
                       htmlFor="area"
                       className="absolute left-4 -top-2.5 bg-white/90 backdrop-blur-sm px-2 text-sm font-medium text-gray-700 transition-all duration-300 rounded-lg"
                     >
-                      Area *
+                      Area
                     </label>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
                       <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
