@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import Link from 'next/link';
+import AuthLayout from '@/components/AuthLayout';
+import { AuthInput, AuthError, AuthButton, AuthLink, AuthInputGroup } from '@/components/AuthFormComponents';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -18,118 +19,113 @@ export default function LoginPage() {
     setIsLoading(true);
     setError('');
 
+    // Basic validation
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!email.includes('@')) {
+      setError('Please enter a valid email address');
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const success = await login(email, password);
       if (success) {
-        // Redirect will be handled by the AuthContext and useEffect in the main page
+        // Redirect based on user role or default to home
         router.push('/');
       } else {
-        setError('Invalid email or password');
+        setError('Invalid email or password. Please check your credentials and try again.');
       }
     } catch (err) {
-      setError('An error occurred during login');
+      console.error('Login error:', err);
+      setError('An error occurred during login. Please try again later.');
     } finally {
       setIsLoading(false);
     }
   };
 
+  const loginIcon = (
+    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+    </svg>
+  );
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
-            <Link href="/" className="font-medium text-blue-600 hover:text-blue-500">
-              return to home page
-            </Link>
+    <AuthLayout
+      title="Welcome Back"
+      subtitle="Sign in to your account to continue"
+      icon={loginIcon}
+      accentColor="blue"
+    >
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        <AuthInputGroup>
+          <AuthInput
+            id="email"
+            name="email"
+            type="email"
+            label="Email Address"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value.trim())}
+            required
+            autoComplete="email"
+            position="top"
+            accentColor="blue"
+          />
+          <AuthInput
+            id="password"
+            name="password"
+            type="password"
+            label="Password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            autoComplete="current-password"
+            position="bottom"
+            accentColor="blue"
+          />
+        </AuthInputGroup>
+
+        {error && <AuthError message={error} />}
+
+        <AuthButton
+          isLoading={isLoading}
+          loadingText="Signing in..."
+          buttonText="Sign In"
+          accentColor="blue"
+        />
+
+        <div className="text-center space-y-4">
+          <p className="text-sm text-white/70">
+            Don't have an account?
           </p>
+          <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4">
+            <AuthLink href="/auth/register/pharmacist" variant="primary">
+              Register as Pharmacist
+            </AuthLink>
+            <span className="hidden sm:inline text-white/30">|</span>
+            <AuthLink href="/auth/register/pharmacy-owner" variant="primary">
+              Register as Owner
+            </AuthLink>
+          </div>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
 
-          {error && (
-            <div className="text-red-600 text-sm text-center">
-              {error}
-            </div>
-          )}
-
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? 'Signing in...' : 'Sign in'}
-            </button>
+        <div className="text-center pt-4 border-t border-white/20 space-y-2">
+          <AuthLink href="/auth/admin" variant="secondary">
+            Admin Login
+          </AuthLink>
+          <div className="mt-2">
+            <AuthLink href="/" variant="secondary" showArrow>
+              Return to Home
+            </AuthLink>
           </div>
-
-          <div className="text-center space-y-2">
-            <p className="text-sm text-gray-600">
-              Don't have an account?
-            </p>
-            <div className="flex justify-center space-x-4">
-              <Link
-                href="/auth/register/pharmacist"
-                className="text-blue-600 hover:text-blue-500 text-sm font-medium"
-              >
-                Register as Pharmacist
-              </Link>
-              <span className="text-gray-300">|</span>
-              <Link
-                href="/auth/register/pharmacy-owner"
-                className="text-green-600 hover:text-green-500 text-sm font-medium"
-              >
-                Register as Owner
-              </Link>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="/auth/admin"
-              className="text-gray-500 hover:text-gray-700 text-xs"
-            >
-              Admin Login
-            </Link>
-          </div>
-        </form>
-      </div>
-    </div>
+        </div>
+      </form>
+    </AuthLayout>
   );
 }
