@@ -22,7 +22,7 @@
 						],
 						"body": {
 						"mode": "raw",
-						"raw": "{\n  \"email\": \"testpha1@gmail.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phoneNumber\": \"01234567890\",\n  \"bio\": \"Experienced pharmacist with 5 years in retail pharmacy\",\n  \"experience\": \"5 years working in retail pharmacy, specializing in patient counseling and medication management\",\n  \"education\": \"PharmD from Cairo University, Bachelor of Pharmaceutical Sciences\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\"\n}"
+						"raw": "{\n  \"email\": \"testpha1@gmail.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phoneNumber\": \"01234567890\",\n  \"bio\": \"Experienced pharmacist with 5 years in retail pharmacy\",\n  \"experience\": \"5 years working in retail pharmacy, specializing in patient counseling and medication management\",\n  \"education\": \"PharmD from Cairo University, Bachelor of Pharmaceutical Sciences\",\n  \"cvUrl\": \"https://example.com/cv.pdf\",\n  \"city\": \"Cairo\",\n  \"area\": \"Nasr City\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/v1/auth/register/pharmacists",

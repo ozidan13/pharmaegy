@@ -45,14 +45,10 @@ export async function GET(req: NextRequest) {
       throw ApiError.notFound('Pharmacist profile not found');
     }
 
-    const { user: profileUser, cvUrl, ...profileData } = pharmacistProfile;
+    const { user: profileUser, ...profileData } = pharmacistProfile;
     const response = {
-      ...profileData,
+      ...profileData, // This includes cvUrl directly if it was selected
       email: profileUser?.email,
-      cv: cvUrl ? {
-        url: cvUrl.startsWith('http') ? cvUrl : `/uploads/cvs/${cvUrl.split('/').pop()}`,
-        uploadedAt: pharmacistProfile.updatedAt
-      } : null
     };
 
     return NextResponse.json({ success: true, data: response });
