@@ -44,6 +44,7 @@ const validateRegisterPharmacist = [
   body('bio').optional().isString().withMessage('Bio must be a string'),
   body('experience').optional().isString().withMessage('Experience must be a string'),
   body('education').optional().isString().withMessage('Education must be a string'),
+  body('cvUrl').optional().isURL().withMessage('Please provide a valid URL for the CV'),
   body('city')
     .notEmpty()
     .withMessage('City is required')
@@ -97,6 +98,7 @@ export async function POST(req: NextRequest) {
       bio,
       experience,
       education,
+      cvUrl,
       city,
       area
       // latitude and longitude are not in the validator, ensure they are handled if needed
@@ -134,6 +136,7 @@ export async function POST(req: NextRequest) {
           bio,
           experience,
           education,
+          cvUrl,
           city,
           area: area || null,
           // Default subscription settings

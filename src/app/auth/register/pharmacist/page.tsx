@@ -15,6 +15,7 @@ interface PharmacistFormData {
   bio: string;
   experience: string;
   education: string;
+  cvUrl: string;
   city: string;
   area: string;
 }
@@ -43,6 +44,7 @@ export default function PharmacistRegisterPage() {
     bio: '',
     experience: '',
     education: '',
+    cvUrl: '',
     city: '',
     area: ''
   });
@@ -373,6 +375,24 @@ export default function PharmacistRegisterPage() {
                     className="absolute left-4 -top-2.5 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-sm font-medium transition-all duration-300 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:bg-gradient-to-r peer-focus:from-blue-600 peer-focus:to-purple-600 peer-focus:bg-clip-text peer-focus:text-transparent"
                   >
                     Education *
+                  </label>
+                </div>
+
+                <div className="relative group">
+                  <input
+                    type="url"
+                    id="cvUrl"
+                    name="cvUrl"
+                    value={formData.cvUrl}
+                    onChange={handleInputChange}
+                    className="peer w-full px-4 py-4 bg-white/50 backdrop-blur-sm border border-white/30 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 placeholder-transparent"
+                    placeholder="CV URL (e.g., LinkedIn profile, online resume)"
+                  />
+                  <label
+                    htmlFor="cvUrl"
+                    className="absolute left-4 -top-2.5 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-sm font-medium transition-all duration-300 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:bg-gradient-to-r peer-focus:from-blue-600 peer-focus:to-purple-600 peer-focus:bg-clip-text peer-focus:text-transparent"
+                  >
+                    CV URL
                   </label>
                 </div>
               </div>
