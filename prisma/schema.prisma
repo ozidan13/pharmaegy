@@ -55,7 +55,7 @@ model PharmacistProfile {
   firstName   String
   lastName    String
   phoneNumber String?
-  cvUrl       String? // URL to the stored CV file
+  cvUrl       String? // URL to the pharmacist's external CV (e.g., Google Drive, LinkedIn)
   bio         String?
   experience  String? // Could be structured JSON or text
   education   String? // Could be structured JSON or text

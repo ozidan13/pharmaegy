@@ -519,7 +519,7 @@
 					]
 				},
 				{
-					"name": "Upload CV",
+					"name": "Update Pharmacist CV Link",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -537,17 +537,21 @@
 								"key": "Authorization",
 								"value": "Bearer {{jwt_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "cv",
-									"type": "file",
-									"src": "/G:/osamaCV2025a.pdf"
+							"mode": "raw",
+							"raw": "{\n    \"cvUrl\": \"https://example.com/your-cv.pdf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/v1/pharmacists/me/cv",
@@ -562,7 +566,7 @@
 								"cv"
 							]
 						},
-						"description": "Upload or update the CV for the authenticated pharmacist.\n\n**Supported file types:** PDF, DOC, DOCX\n**Max file size:** 5MB"
+						"description": "Update the pharmacist's CV link. Requires authentication as a PHARMACIST.\n\n**Auth:** Bearer Token (Pharmacist)\n**Body:** JSON with 'cvUrl' (string: valid URL)"
 					},
 					"response": [
 						{

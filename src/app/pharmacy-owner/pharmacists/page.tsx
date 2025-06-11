@@ -27,6 +27,8 @@ interface Pharmacist {
   city: string;
   area: string;
   available: boolean;
+  cvUrl?: string;
+  phoneNumber?: string; // Add phoneNumber to the interface
   user: {
     email: string;
   };
@@ -267,11 +269,31 @@ export default function PharmacyOwnerPharmacistsPage() {
                               {pharmacist.bio && (
                                 <p><strong>Bio:</strong> {pharmacist.bio}</p>
                               )}
+                              {pharmacist.phoneNumber && (
+                                <p><strong>Phone:</strong> {pharmacist.phoneNumber}</p>
+                              )}
                             </div>
                           </div>
                         </div>
                         
-                        <div className="mt-4 flex space-x-2">
+                        <div className="mt-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                          {pharmacist.cvUrl ? (
+                            <a 
+                              href={pharmacist.cvUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="flex-1 text-center bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                              View CV
+                            </a>
+                          ) : (
+                            <button 
+                              disabled
+                              className="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-md text-sm font-medium cursor-not-allowed"
+                            >
+                              CV Not Available
+                            </button>
+                          )}
                           <button 
                             onClick={() => {
                               if (pharmacist.user.email) {
@@ -282,15 +304,9 @@ export default function PharmacyOwnerPharmacistsPage() {
                                 window.location.href = `mailto:${pharmacist.user.email}?subject=${subject}&body=${body}`;
                               }
                             }}
-                            className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="flex-1 bg-green-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
                           >
                             Contact
-                          </button>
-                          <button 
-                            onClick={() => window.location.href = `/pharmacy-owner/pharmacists/${pharmacist.id}`}
-                            className="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                          >
-                            View Profile
                           </button>
                         </div>
                       </div>

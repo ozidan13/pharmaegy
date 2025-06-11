@@ -77,6 +77,8 @@ export async function GET(req: NextRequest) {
         city: true,
         area: true,
         available: true,
+        cvUrl: true,
+        phoneNumber: true, // Add phoneNumber to the selection
         user: { select: { email: true } }, // Include email for contact or display
         updatedAt: true, // To show how recent the profile is
       },
