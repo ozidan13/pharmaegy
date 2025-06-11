@@ -369,7 +369,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"pharmacist_id\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"pharmacist@example.com\",\n    \"phoneNumber\": \"+1234567890\",\n    \"bio\": \"Experienced pharmacist\",\n    \"experience\": \"5 years in retail pharmacy\",\n    \"education\": \"PharmD from University of Example\",\n    \"city\": \"Cairo\",\n    \"area\": \"Nasr City\",\n    \"available\": true,\n    \"cv\": {\n      \"url\": \"http://localhost:5000/uploads/cvs/cv-1234567890.pdf\",\n      \"uploadedAt\": \"2023-06-15T10:30:00Z\"\n    },\n    \"createdAt\": \"2023-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2023-06-15T10:30:00.000Z\"\n  }\n}"
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"pharmacist_id\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"pharmacist@example.com\",\n    \"phoneNumber\": \"+1234567890\",\n    \"bio\": \"Experienced pharmacist\",\n    \"experience\": \"5 years in retail pharmacy\",\n    \"education\": \"PharmD from University of Example\",\n    \"city\": \"Cairo\",\n    \"area\": \"Nasr City\",\n    \"available\": true,\n    \"cvUrl\": \"http://localhost:5000/uploads/cvs/cv-1234567890.pdf\",\n    \"createdAt\": \"2023-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2023-06-15T10:30:00.000Z\"\n  }\n}"
 						}
 					]
 				},

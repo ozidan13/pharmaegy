@@ -26,6 +26,9 @@ interface PharmacistProfile {
 export default function PharmacistProfilePage() {
   const { token } = useAuth();
   const [profile, setProfile] = useState<PharmacistProfile | null>(null);
+  const [newCvUrl, setNewCvUrl] = useState<string>('');
+  const [updateCvMessage, setUpdateCvMessage] = useState<string | null>(null);
+  const [updateCvError, setUpdateCvError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,6 +62,48 @@ export default function PharmacistProfilePage() {
 
     fetchProfile();
   }, [token]);
+
+  const handleUpdateCv = async () => {
+    if (!token) {
+      setUpdateCvError('No authentication token available');
+      return;
+    }
+    if (!newCvUrl) {
+      setUpdateCvError('Please enter a new CV URL.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setUpdateCvMessage(null);
+      setUpdateCvError(null);
+      const response = await fetch('/api/v1/pharmacists/me/cv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ cvUrl: newCvUrl }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to update CV URL');
+      }
+
+      setUpdateCvMessage(result.message || 'CV URL updated successfully!');
+      // Optionally, refresh profile data to show the new CV URL immediately
+      if (profile) {
+        setProfile({ ...profile, cvUrl: newCvUrl });
+      }
+      setNewCvUrl(''); // Clear the input field
+    } catch (err: any) {
+      setUpdateCvError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <ProtectedRoute allowedRoles={[UserRole.PHARMACIST]}>
@@ -125,6 +170,28 @@ export default function PharmacistProfilePage() {
                   </a>
                 </div>
               )}
+              {/* CV Update Section */}
+              <div className="md:col-span-2 mt-4 pt-4 border-t">
+                <p className="text-sm text-gray-500 mb-2">Update CV Link</p>
+                <div className="flex flex-col sm:flex-row gap-2 items-start">
+                  <input 
+                    type="url" 
+                    value={newCvUrl} 
+                    onChange={(e) => setNewCvUrl(e.target.value)} 
+                    placeholder="Enter new CV URL (e.g., https://example.com/cv.pdf)" 
+                    className="flex-grow p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  />
+                  <button 
+                    onClick={handleUpdateCv} 
+                    disabled={loading || !newCvUrl}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loading ? 'Updating...' : 'Update CV Link'}
+                  </button>
+                </div>
+                {updateCvMessage && <p className="text-green-600 mt-2">{updateCvMessage}</p>}
+                {updateCvError && <p className="text-red-500 mt-2">Error: {updateCvError}</p>}
+              </div>
             </div>
             <div className="mt-6 border-t pt-4 text-sm text-gray-500">
               <p>Profile Created: {new Date(profile.createdAt).toLocaleDateString()}</p>
