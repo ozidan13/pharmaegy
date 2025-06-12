@@ -11,6 +11,8 @@ export default function PharmacistDashboard() {
 
   return (
     <ProtectedRoute allowedRoles={[UserRole.PHARMACIST]}>
+      <Navigation title="Pharmacist Dashboard" />
+
       <div className="min-h-screen relative overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
@@ -48,7 +50,6 @@ export default function PharmacistDashboard() {
           }
         `}</style>
 
-        <Navigation title="Pharmacist Dashboard" />
 
         {/* Main Content */}
         <main className="relative z-10 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -159,7 +160,7 @@ export default function PharmacistDashboard() {
                 </Link>
 
                 <Link
-                  href="https://api.whatsapp.com/send/?phone=01020729458"
+                  href="https://wa.me/201555299709"
                   className="group backdrop-blur-sm bg-gradient-to-r from-green-50/50 to-green-100/50 border border-green-200/30 p-6 rounded-xl hover:from-green-100/70 hover:to-green-200/70 transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 >
                   <div className="text-center">
