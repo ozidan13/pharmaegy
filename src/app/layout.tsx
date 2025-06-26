@@ -21,8 +21,49 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PharmaBridge",
-  description: "Connect pharmacists with pharmacy owners",
+  title: "فارما بريدج | Pharma Bridge",
+  description: "المنصة الرائدة التي تربط الصيادلة الموهوبين بأصحاب الصيدليات في مصر - The leading platform connecting talented pharmacists with pharmacy owners in Egypt",
+  keywords: "pharmacy, pharmacist, Egypt, صيدلية, صيدلي, مصر, وظائف, jobs",
+  authors: [{ name: "Pharma Bridge Team" }],
+  creator: "Pharma Bridge",
+  publisher: "Pharma Bridge",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  icons: {
+    icon: [
+      { url: "/pharma-bridge-icon.svg", type: "image/svg+xml" }],
+    apple: [
+      { url: "/pharma-bridge-icon.svg", type: "image/svg+xml" }
+    ],
+  },
+  openGraph: {
+    title: "فارما بريدج | Pharma Bridge",
+    description: "المنصة الرائدة التي تربط الصيادلة الموهوبين بأصحاب الصيدليات في مصر",
+    url: "https://pharmabridge.com",
+    siteName: "Pharma Bridge",
+    locale: "ar_EG",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "فارما بريدج | Pharma Bridge",
+    description: "المنصة الرائدة التي تربط الصيادلة الموهوبين بأصحاب الصيدليات في مصر",
+    creator: "@pharmabridge",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({

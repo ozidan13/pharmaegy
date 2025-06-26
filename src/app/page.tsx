@@ -4,6 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function LandingPage() {
   const { user, isLoading } = useAuth();
@@ -64,12 +65,16 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="backdrop-blur-xl bg-white/20 dark:bg-gray-900/20 border border-white/30 dark:border-gray-700/30 rounded-2xl px-6 py-3 shadow-lg">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3 space-x-reverse">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md transition-transform duration-300 hover:scale-110">
-                    <span className="text-white font-bold text-xl">ف</span>
+                <Link href="/" className="flex items-center space-x-3 space-x-reverse group">
+                  <div className="w-10 h-10 transition-transform duration-300 group-hover:scale-110">
+                    <img 
+                      src="/pharma-bridge-icon.svg" 
+                      alt="فارما بريدج" 
+                      className="w-full h-full object-contain"
+                    />
                   </div>
-                  <span className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">فارما بريدج</span>
-                </div>
+                  <span className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">فارما بريدج</span>
+                </Link>
                 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center space-x-8 space-x-reverse">
@@ -129,6 +134,13 @@ export default function LandingPage() {
           <div className="space-y-8 sm:space-y-12 animate-fade-in">
             {/* Main Heading */}
             <div className="space-y-4 sm:space-y-6">
+              <Image 
+                src="/pharma-bridge-icon.svg" 
+                alt="فارما بريدج" 
+                width={128} 
+                height={128} 
+                className="mx-auto"
+              />
               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-tight tracking-tight">
                 <span className="text-gray-900 dark:text-gray-100 block mb-2 sm:mb-4 animate-slide-up">اربط</span>
                 <span className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 bg-clip-text text-transparent block mb-2 sm:mb-4 animate-slide-up" style={{animationDelay: '0.2s'}}>الصيادلة</span>
