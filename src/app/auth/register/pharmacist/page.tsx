@@ -106,6 +106,11 @@ export default function PharmacistRegisterPage() {
     try {
       const { confirmPassword, ...registrationData } = formData;
       
+      // Set default CV URL if not provided
+      if (!registrationData.cvUrl || registrationData.cvUrl.trim() === '') {
+        registrationData.cvUrl = 'https://docs.google.com/';
+      }
+      
       const response = await fetch('/api/v1/auth/register/pharmacists', {
         method: 'POST',
         headers: {
