@@ -5,6 +5,19 @@ import { UserRole } from '@prisma/client';
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
+// Centralized token generation function
+export const generateToken = (id: string, email: string, role: UserRole): string => {
+  if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET is not defined');
+  }
+  const expiresIn = process.env.JWT_EXPIRES_IN || '30d'; // 30 days for persistent login
+  return jwt.sign(
+    { id, email, role },
+    JWT_SECRET as jwt.Secret,
+    { expiresIn } as jwt.SignOptions
+  );
+};
+
 export interface AuthenticatedUser {
   id: string;
   email: string;

@@ -13,7 +13,7 @@ const generateToken = (id: string, email: string, role: UserRole): string => {
   if (!JWT_SECRET) {
     throw new Error('JWT_SECRET is not defined');
   }
-  const expiresIn = process.env.JWT_EXPIRES_IN || '1d';
+  const expiresIn = process.env.JWT_EXPIRES_IN || '30d'; // 30 days for persistent login
   return jwt.sign(
     { id, email, role },
     JWT_SECRET as jwt.Secret,

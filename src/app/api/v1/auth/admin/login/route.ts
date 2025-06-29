@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
         role: user.role 
       },
       process.env.JWT_SECRET!,
-      { expiresIn: '24h' }
+      { expiresIn: '30d' } // 30 days for persistent login
     );
 
     // Set HTTP-only cookie
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
-      maxAge: 24 * 60 * 60, // 24 hours
+      maxAge: 30 * 24 * 60 * 60, // 30 days
       path: '/'
     });
 
